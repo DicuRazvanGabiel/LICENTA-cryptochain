@@ -1,13 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const Blockchain = require('./blockchain');
-const PubSub = require('./pubsub');
+const PubSub = require('./app/pubsub');
 const request = require('request');
 
 const app = express();
 const blockchain = new Blockchain();
 const pubsub = new PubSub({ blockchain });
-
 
 const DEFAUL_PORT = 3000;
 const ROOT_NODE_ADDRESS = `http://localhost:${DEFAUL_PORT}`;
@@ -36,7 +35,7 @@ const syncChain = () => {
           console.log('replace chain on a sync with', rootChain);
           blockchain.replaceChain(rootChain);
         }
-      });
+    });
 };
 
 let PEER_PORT;
