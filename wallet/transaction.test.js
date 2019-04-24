@@ -113,14 +113,14 @@ describe('Transaction', () => {
             expect(transaction.outputMap[nextRecipient]).toEqual(nextAmount);
         });
 
-        if('subtracts the amount from the original sender output amount', () => {
+        it('subtracts the amount from the original sender output amount', () => {
             expect(transaction.outputMap[senderWallet.publicKey])
-                .toEqual(originalSenderOutput - nextAmount);
+              .toEqual(originalSenderOutput - nextAmount);
         });
 
-        it('mantaines a total output that matches the input amount', () => {
+        it('maintains a total output that matches the input amount', () => {
             expect(
-                Object.values(transaction.outputMap)
+              Object.values(transaction.outputMap)
                 .reduce((total, outputAmount) => total + outputAmount)
             ).toEqual(transaction.input.amount);
         });

@@ -16,14 +16,13 @@ class Transaction {
     }
 
     createInput({ senderWallet, outputMap }) {
-        let input = {};
-        input.timestamp = Date.now();
-        input.amount = senderWallet.balance;
-        input.address = senderWallet.publicKey;
-        input.signature = senderWallet.sign(outputMap);
-
-        return input;
-    }
+        return {
+          timestamp: Date.now(),
+          amount: senderWallet.balance,
+          address: senderWallet.publicKey,
+          signature: senderWallet.sign(outputMap)
+        };
+      }
 
     static validTransaction(transaction) {
         const { input: { address, amount, signature }, outputMap } = transaction;
@@ -46,9 +45,10 @@ class Transaction {
 
     update({ senderWallet, recipient, amount }) {
         this.outputMap[recipient] = amount;
+        
         this.outputMap[senderWallet.publicKey] = this.outputMap[senderWallet.publicKey] - amount;
 
-        this.input = createInput({ senderWallet, outputMap: this.outputMap })
+        this.input = this.createInput({ senderWallet, outputMap: this.outputMap });
     }
 }
 
