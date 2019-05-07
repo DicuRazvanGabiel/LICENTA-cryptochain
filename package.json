@@ -37,7 +37,7 @@
     "parcel-bundler": "^1.10.3",
     "pubnub": "^4.21.6",
     "react": "^16.8.6",
-    "react-bootstrap": "^1.0.0-beta.8",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
     "request": "^2.88.0",
