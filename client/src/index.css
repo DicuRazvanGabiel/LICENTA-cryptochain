@@ -37,3 +37,8 @@ a, a:hover {
 .ConductTransaction {
     margin: 10%
 }
+
+hr {
+    color: red;
+    background-color: #fff;
+}
