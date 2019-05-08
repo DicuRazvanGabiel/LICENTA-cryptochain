@@ -67,7 +67,7 @@ app.get('/api/transaction-pool-map', (req, res) => {
 });
 
 app.get('/api/blocks', (req, res) => {
-    res.json(blockchain.chain);
+    res.json(blockchain.chain.reverse());
 });
 
 app.get('/api/mine-transactions', (req, res) => {

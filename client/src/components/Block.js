@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button } from 'react-bootstrap'
+import Transaction from './Transaction'
 
 export default class Block extends Component {
   state = { displayTransaction: false } 
@@ -27,8 +28,16 @@ export default class Block extends Component {
 
     return (
       <div>
-        <div>Data: {dataDisplay}</div>
-        <Button bsStyle="danger" bsSize="small" onClick={this.togleTransaction}>Show more</Button>
+        <div>
+          {
+            data.map(transaction => (
+              <div key={transaction.id}>
+              <hr/>
+                <Transaction transaction={transaction}/>
+              </div>
+            ))
+          }
+        </div>
       </div>
     );
   }
@@ -44,7 +53,6 @@ export default class Block extends Component {
           <div>
              Hash: {hash}
           </div>
-
           {this.displayTransaction} 
       </div>
     )
