@@ -1,44 +1,45 @@
 const Transaction = require('./transaction');
 
 class TransactionPool {
-    constructor () {
-        this.transactionMap  = {};
-    }
+  constructor() {
+    this.transactionMap = {};
+  }
 
-    setTransaction(transaction) {
-        this.transactionMap[transaction.id] = transaction;
-    }
+  clear() {
+    this.transactionMap = {};
+  }
 
-    setMap(transactionPoolMap) {
-        this.transactionMap = transactionPoolMap;
-    }
+  setTransaction(transaction) {
+    this.transactionMap[transaction.id] = transaction;
+  }
 
-    existingTransaction({ inputAddress }) {
-        const transactions = Object.values(this.transactionMap);
-    
-        return transactions.find(transaction => transaction.input.address === inputAddress);
-    }
+  setMap(transactionMap) {
+    this.transactionMap = transactionMap;
+  }
 
-    validTransactions() {
-        const transactions = Object.values(this.transactionMap);
-        return transactions.filter(transaction => Transaction.validTransaction(transaction));
-    }
+  existingTransaction({ inputAddress }) {
+    const transactions = Object.values(this.transactionMap);
 
-    clear() {
-        this.transactionMap = {};
-    }
+    return transactions.find(transaction => transaction.input.address === inputAddress);
+  }
 
-    clearBlockchainTransactions({ chain }) {
-        for (let i=1; i<chain.length; i++) {
-          const block = chain[i];
-    
-          for (let transaction of block.data) {
-            if (this.transactionMap[transaction.id]) {
-              delete this.transactionMap[transaction.id];
-            }
-          }
+  validTransactions() {
+    return Object.values(this.transactionMap).filter(
+      transaction => Transaction.validTransaction(transaction)
+    );
+  }
+
+  clearBlockchainTransactions({ chain }) {
+    for (let i=1; i<chain.length; i++) {
+      const block = chain[i];
+
+      for (let transaction of block.data) {
+        if (this.transactionMap[transaction.id]) {
+          delete this.transactionMap[transaction.id];
         }
+      }
     }
+  }
 }
 
-module.exports = TransactionPool 
+module.exports = TransactionPool;
